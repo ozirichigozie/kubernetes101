@@ -30,3 +30,17 @@ spec:
             secretKeyRef:
               name: mongodb-secret
               key: mongo-root-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+# Service's <selector> must match Deployment's <labels>
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      # Service's <targetPort> has to match Deployment's <containerPort>
+      targetPort: 27017
